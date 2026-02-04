@@ -14,13 +14,13 @@ public class PublicLocationController {
         this.locationDetailsService = locationDetailsService;
     }
 
-    @GetMapping("/{categoryId}/locations/{locationId}")
-    public ResponseEntity<?> getLocationDetails(
-        @PathVariable int categoryId,
-        @PathVariable int locationId
-    ) {
-        JsonNode location = locationDetailsService.getLocationDetails(categoryId, locationId);
-        return ResponseEntity.ok(location);
-    }
+    // @GetMapping("/{categoryId}/locations/{locationId}")
+    // public ResponseEntity<?> getLocationDetails(
+    //     @PathVariable int categoryId,
+    //     @PathVariable int locationId
+    // ) {
+    //     JsonNode location = locationDetailsService.getLocationDetails(categoryId, locationId);
+    //     return ResponseEntity.ok(location);
+    // }
     
 }

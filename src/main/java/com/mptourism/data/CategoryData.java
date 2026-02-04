@@ -17,8 +17,8 @@ public class CategoryData {
         return categories;
     }
 
-    public static void addCategory(Category category) {
-        categories.add(category);
-        CategoryFileStorage.saveCategories(categories);
-    }
+    // public static void addCategory(Category category) {
+    //     categories.add(category);
+    //     CategoryFileStorage.saveCategories(categories);
+    // }
 }

@@ -1,0 +1,471 @@
+{
+  "categoryId": 5,
+  "locations": [
+    {
+      "locationId": 1,
+      "name": "Ujjain",
+      "details": {
+        "overview": "Ujjain is one of the seven sacred cities of Hinduism and home to Mahakaleshwar, one of the 12 Jyotirlingas of Lord Shiva. It is also the venue for the Kumbh Mela.",
+        "howToReach": [
+          "Indore Airport - 59 km",
+          "Ujjain Junction - Direct trains from major cities",
+          "NH-52 connectivity"
+        ],
+        "bestTimeToVisit": [
+          "November to February",
+          "Peak pilgrimage Season"
+        ],
+        "nearbyAttractions": [
+          "Omkareshwar – 143 km",
+          "Maheshwar – 154 km"
+        ],
+        "categoryDetails": {
+          "bestFor": [
+            "Pilgrims",
+            "Spiritual seekers",
+            "Cultural travelers"
+          ],
+          "keyAttractions": [
+            "Mahakaleshwar Jyotirlinga",
+            "Ram Ghat (Shipra Aarti)",
+            "Kal Bhairav Temple",
+            "Ved Shala (ancient observatory)"
+          ],
+          "timings": {
+            "Mahakaleshwar Temple": "Early morning to night (Bhasma Aarti at dawn)"
+          },
+          "locationsMap": {
+            "district": "Ujjain",
+            "region": "Malwa"
+          },
+          "distanceGuide": {
+            "Indore": "57 km",
+            "Bhopal": "192 km",
+            "Jabalpur": "504 km",
+            "Delhi": "716 km"
+          }
+        }
+      }
+    },
+    {
+      "locationId": 2,
+      "name": "Omkareshwar",
+      "details": {
+        "overview": "Situated on Mandhata Island in the Narmada River, Omkareshwar is one of the 12 Jyotirlingas and a major Shaivite pilgrimage site.",
+        "howToReach": [
+          "Indore Airport - 80 km",
+          "Omkareshwar Road Station – 12 km",
+          "Well-connected by road"
+        ],
+        "bestTimeToVisit": [
+          "October to March",
+          "Maha Shivratri celebrations"
+        ],
+        "nearbyAttractions": [
+          "Indira Sagar Dam - 65 km",
+          "Maheshwar – 154 km"
+        ],
+        "categoryDetails": {
+          "bestFor": [
+            "Shiva devotees",
+            "Spiritual & meditation travelers"
+          ],
+          "keyAttractions": [
+            "Omkareshwar Jyotirlinga",
+            "Mamleshwar Temple",
+            "Narmada Parikrama & ghats"
+          ],
+          "locationsMap": {
+            "district": "Khandwa",
+            "region": "Nimar"
+          },
+          "distanceGuide": {
+            "Indore": "80 km",
+            "Bhopal": "256 km",
+            "Jabalpur": "520 km",
+            "Delhi": "860 km"
+          }
+        }
+      }
+    },
+    {
+      "locationId": 3,
+      "name": "Chitrakoot",
+      "details": {
+        "overview": "Chitrakoot is closely associated with Lord Rama’s exile and is known for its sacred forests, river ghats, and ancient temples.",
+        "howToReach": [
+          "Prayagraj – 110 km",
+          "Chitrakoot Dham Karwi Railway Station – 10 km",
+          "Road access from Satna"
+        ],
+        "bestTimeToVisit": [
+          "October to March",
+          "Ram Navami festival"
+        ],
+        "nearbyAttractions": [
+          "Gupt Godavari – 18 km",
+          "Satna – 75 km"
+        ],
+        "categoryDetails": {
+          "bestFor": [
+            "Ram devotees",
+            "Spiritual & cultural travelers"
+          ],
+          "keyAttractions": [
+            "Ram Ghat",
+            "Kamadgiri Parikrama",
+            "Hanuman Dhara"
+          ],
+          "locationsMap": {
+            "district": "Satna",
+            "region": "Vindhya"
+          },
+          "distanceGuide": {
+            "Bhopal": "530 km",
+            "Indore": "732 km",
+            "Jabalpur": "283 km",
+            "Delhi": "675 km"
+          }
+        }
+      }
+    },
+    {
+      "locationId": 4,
+      "name": "Maihar",
+      "details": {
+        "overview": "Maihar is famous for the Sharda Devi Temple, located atop Trikuta Hill and accessed by over 1,000 steps or a ropeway.",
+        "howToReach": [
+          "Jabalpur Airport – 178 km",
+          "Maihar Railway Station",
+          "NH-30 connectivity"
+        ],
+        "bestTimeToVisit": [
+          "October to March",
+          "Navratri celebrations"
+        ],
+        "nearbyAttractions": [
+          "Khajuraho – 136 km",
+          "Satna – 45 km"
+        ],
+        "categoryDetails": {
+          "bestFor": [
+            "Shakti devotees",
+            "Family pilgrims"
+          ],
+          "keyAttractions": [
+            "Sharda Devi Temple",
+            "Ropeway facility"
+          ],
+          "locationsMap": {
+            "district": "Satna",
+            "region": "Baghelkhand"
+          },
+          "distanceGuide": {
+            "Bhopal": "415 km",
+            "Indore": "680 km",
+            "Jabalpur": "163 km",
+            "Delhi": "780 km"
+          }
+        }
+      }
+    },
+    {
+      "locationId": 5,
+      "name": "Amarkantak",
+      "details": {
+        "overview": "Amarkantak is a sacred town where the Narmada River originates, revered as a major Hindu pilgrimage center surrounded by forests and hills.",
+        "howToReach": [
+          "Jabalpur Airport – 238 km",
+          "Pendra Road Railway Station – 30 km",
+          "Road via Anuppur"
+        ],
+        "bestTimeToVisit": [
+          "October to March"
+        ],
+        "nearbyAttractions": [
+          "Sonmuda – 3 km",
+          "Kapildhara – 6 km"
+        ],
+        "categoryDetails": {
+          "bestFor": [
+            "Spiritual seekers",
+            "Nature & religious travelers"
+          ],
+          "keyAttractions": [
+            "Narmada Kund",
+            "Kapildhara Falls",
+            "Ancient temples"
+          ],
+          "locationsMap": {
+            "district": "Anuppur",
+            "region": "Maikal Range"
+          },
+          "distanceGuide": {
+            "Bhopal": "541 km",
+            "Indore": "760 km",
+            "Jabalpur": "230 km",
+            "Delhi": "1050 km"
+          }
+        }
+      }
+    },
+    {
+      "locationId": 6,
+      "name": "Orchha",
+      "details": {
+        "overview": "Orchha is a beautifully preserved medieval town where Raja Ram Temple holds unique significance as the only temple in India where Lord Ram is worshipped as a reigning King. The town is further defined by the grand Orchha Fort Complex and the royal cenotaphs along the Betwa River, blending living faith, royal legacy, and Bundela architecture.",
+        "howToReach": [
+          "Gwalior Airport – 131 km",
+          "Jhansi Railway Station – 19 km",
+          "Road connectivity from Jhansi"
+        ],
+        "bestTimeToVisit": [
+          "October to March"
+        ],
+        "nearbyAttractions": [
+          "Jhansi Fort – 18 km",
+          "Datia Palace – 52 km"
+        ],
+        "categoryDetails": {
+          "bestFor": [
+            "Devotees",
+            "Heritage & spiritual travelers"
+          ],
+          "keyAttractions": [
+            "Ram Raja Temple",
+            "Chaturbhuj Temple",
+            "Lakshmi Narayan Temple",
+            "Orchha Fort Complex"
+          ],
+          "locationsMap": {
+            "district": "Niwari",
+            "region": "Bundelkhand"
+          },
+          "distanceGuide": {
+            "Bhopal": "330 km",
+            "Indore": "535 km",
+            "Jabalpur": "325 km",
+            "Delhi": "486 km"
+          }
+        }
+      }
+    },
+    {
+      "locationId": 7,
+      "name": "Datia",
+      "details": {
+        "overview": "Datia is renowned for Peetambara Peeth, one of the most important Shaktipeeths in India, dedicated to Goddess Baglamukhi and Goddess Dhumawati. The site holds immense spiritual importance for devotees seeking divine protection and strength.",
+        "howToReach": [
+          "Gwalior Airport – 87 km",
+          "Datia Railway Station",
+          "NH-119 road connectivity"
+        ],
+        "bestTimeToVisit": [
+          "October to March",
+          "Navratri festival period"
+        ],
+        "nearbyAttractions": [
+          "Orchha – 47 km",
+          "Jhansi – 28 km"
+        ],
+        "categoryDetails": {
+          "bestFor": [
+            "Shakti devotees",
+            "Tantric worshippers"
+          ],
+          "keyAttractions": [
+            "Peetambara Peeth",
+            "Datia Palace"
+          ],
+          "locationsMap": {
+            "district": "Datia",
+            "region": "Bundelkhand"
+          },
+          "distanceGuide": {
+            "Bhopal": "360 km",
+            "Indore": "558 km",
+            "Jabalpur": "370 km",
+            "Delhi": "442 km"
+          }
+        }
+      }
+    },
+    {
+      "locationId": 8,
+      "name": "Taj-ul-Masajid",
+      "details": {
+        "overview": "Taj-ul-Masajid is one of the largest mosques in India, known for its massive scale, pink façade, towering minarets, and its role as an active place of worship reflecting Bhopal’s Islamic heritage.",
+        "howToReach": [
+          "Raja Bhoj Airport, Bhopal – 9 km",
+          "Bhopal Junction – 4 km",
+          "Easily accessible by city transport"
+        ],
+        "bestTimeToVisit": [
+          "October to March"
+        ],
+        "nearbyAttractions": [
+          "Jama Masjid (Old Bhopal) – 2 km",
+          "Upper Lake – 8 km",
+          "Shaukat Mahal – 1 km"
+        ],
+        "categoryDetails": {
+          "bestFor": [
+            "Religious pilgrims",
+            "Architecture & heritage lovers",
+            "Cultural tourists",
+            "Families"
+          ],
+          "keyAttractions": [
+            "Main prayer hall",
+            "Open courtyard",
+            "Minarets and domes"
+          ],
+          "timings": {
+            "Visiting Hours": "Open daily (non-prayer hours preferred)"
+          },
+          "locationsMap": {
+            "district": "Bhopal",
+            "region": "Central Madhya Pradesh"
+          },
+          "distanceGuide": {
+            "Bhopal": "0 km",
+            "Indore": "195 km",
+            "Jabalpur": "315 km",
+            "Delhi": "775 km"
+          }
+        }
+      }
+    },
+    {
+      "locationId": 9,
+      "name": "Saint Joseph’s Church",
+      "details": {
+        "overview": "Saint Joseph’s Church in Bhopal is one of the oldest Christian churches in central India, admired for its colonial-era architecture and serene spiritual atmosphere.",
+        "howToReach": [
+          "Bhopal Airport – 9 km",
+          "Bhopal Junction – 5 km",
+          "Accessible via city transport"
+        ],
+        "bestTimeToVisit": [
+          "Throughout the year",
+          "Christmas season (December)"
+        ],
+        "nearbyAttractions": [
+          "Bharat Bhavan – 7 km",
+          "Van Vihar – 9 km"
+        ],
+        "categoryDetails": {
+          "bestFor": [
+            "Christian pilgrims",
+            "Peaceful spiritual travelers",
+            "Heritage tourists"
+          ],
+          "keyAttractions": [
+            "Cathedral prayer hall",
+            "Colonial architecture",
+            "Sunday Mass"
+          ],
+          "locationsMap": {
+            "district": "Bhopal",
+            "region": "Central Madhya Pradesh"
+          },
+          "distanceGuide": {
+            "Bhopal": "0 km",
+            "Indore": "195 km",
+            "Jabalpur": "317 km",
+            "Delhi": "774 km"
+          }
+        }
+      }
+    },
+    {
+      "locationId": 10,
+      "name": "Sonagiri Jain Temples",
+      "details": {
+        "overview": "Sonagiri is a major Jain pilgrimage center, famous for more than 100 white Jain temples spread across a sacred hill. The site is deeply associated with Jain Tirthankaras and is known for its serene atmosphere, spiritual importance, and panoramic views.",
+        "howToReach": [
+          "Gwalior Airport – 80 km",
+          "Sonagir Railway Station – 4 km",
+          "Road via Jhansi–Gwalior highway"
+        ],
+        "bestTimeToVisit": [
+          "October to March",
+          "Jain festivals and pilgrimage season"
+        ],
+        "nearbyAttractions": [
+          "Datia Palace – 15 km",
+          "Orchha – 58 km"
+        ],
+        "categoryDetails": {
+          "bestFor": [
+            "Jain pilgrims",
+            "Spiritual seekers",
+            "Peace & meditation travelers"
+          ],
+          "keyAttractions": [
+            "Main hilltop Jain temple",
+            "Cluster of white marble temples",
+            "Panoramic hilltop views"
+          ],
+          "timings": {
+            "Temple Timings": "Sunrise to sunset"
+          },
+          "locationsMap": {
+            "district": "Datia",
+            "region": "Bundelkhand"
+          },
+          "distanceGuide": {
+            "Bhopal": "373 km",
+            "Indore": "572 km",
+            "Jabalpur": "385 km",
+            "Delhi": "435 km"
+          }
+        }
+      }
+    },
+    {
+      "locationId": 11,
+      "name": "Gurudwara Data Bandi Chhor Sahib",
+      "details": {
+        "overview": "Gurudwara Data Bandi Chhor Sahib is a historic Sikh pilgrimage site associated with Guru Hargobind Sahib Ji, who was imprisoned at Gwalior Fort and later freed along with 52 kings. The Gurudwara stands as a symbol of freedom, courage, and faith.",
+        "howToReach": [
+          "Gwalior Airport – 16 km",
+          "Gwalior Junction – 7 km",
+          "Well-connected by city roads"
+        ],
+        "bestTimeToVisit": [
+          "October to March",
+          "Diwali and Gurpurab celebrations"
+        ],
+        "nearbyAttractions": [
+          "Gwalior Fort – Adjacent",
+          "Jai Vilas Palace – 5 km"
+        ],
+        "categoryDetails": {
+          "bestFor": [
+            "Sikh pilgrims",
+            "Religious & historical travelers",
+            "Cultural tourists"
+          ],
+          "keyAttractions": [
+            "Gurudwara complex",
+            "Associated history of Gwalior Fort"
+          ],
+          "timings": {
+            "Visiting Hours": "Open daily"
+          },
+          "locationsMap": {
+            "district": "Gwalior",
+            "region": "Chambal"
+          },
+          "distanceGuide": {
+            "Bhopal": "430 km",
+            "Indore": "635 km",
+            "Jabalpur": "449 km",
+            "Delhi": "352 km"
+          }
+        }
+      }
+    }
+  ]
+}

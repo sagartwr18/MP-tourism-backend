@@ -3,29 +3,80 @@ package com.mptourism.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import com.mptourism.security.JwtAuthFilter;
 
 @Configuration
 public class SecurityConfig {
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    private final JwtAuthFilter jwtAuthFilter;
+
+    public SecurityConfig(JwtAuthFilter jwtAuthFilter) {
+        this.jwtAuthFilter = jwtAuthFilter;
     }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
         http
-            .csrf().disable()
-            .authorizeHttpRequests()
-                .requestMatchers("/api/auth/**").permitAll()  // public endpoints
-                .requestMatchers("/api/admin/**").authenticated() // admin endpoints
-                .anyRequest().authenticated()
-            .and()
-            .httpBasic(); // or stateless JWT filter later
+                .csrf(csrf -> csrf.disable())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/public/**").permitAll()
+                        .requestMatchers("/api/admin/**").authenticated()
+                        .anyRequest().permitAll())
+                // THIS IS THE IMPORTANT LINE
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
+
+    // @Bean
+    // public JwtAuthFilter jwtAuthFilter() {
+    // return new JwtAuthFilter();
+    // }
 }
+
+// @Configuration
+// public class SecurityConfig {
+
+// private final JwtAuthFilter jwtAuthFilter;
+
+// public SecurityConfig(JwtAuthFilter jwtAuthFilter) {
+// this.jwtAuthFilter = jwtAuthFilter;
+// }
+
+// @Bean
+// public PasswordEncoder passwordEncoder() {
+// return new BCryptPasswordEncoder();
+// }
+
+// @Bean
+// public SecurityFilterChain securityFilterChain(HttpSecurity http) throws
+// Exception {
+
+// http
+// .csrf(csrf -> csrf.disable())
+// .sessionManagement(session ->
+// session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+// .authorizeHttpRequests(auth -> auth
+
+// // ✅ PUBLIC APIs (NO AUTH)
+// .requestMatchers("/api/public/**").permitAll()
+// // .requestMatchers("/api/auth/**").permitAll()
+
+// // 🔐 ALL OTHER APIs REQUIRE LOGIN
+// .requestMatchers("/api/**").authenticated()
+
+// .anyRequest().denyAll())
+// .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+
+// return http.build();
+// }
+
+// }

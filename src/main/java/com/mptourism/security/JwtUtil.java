@@ -10,10 +10,10 @@ import java.util.Date;
 
 public class JwtUtil {
 
-    // MUST be at least 256 bits for HS256
-    private static final Key SECRET_KEY = Keys.hmacShaKeyFor("mp-tourism-super-secure-secret-key-256bit".getBytes());
+    private static final Key SECRET_KEY =
+            Keys.hmacShaKeyFor("mp-tourism-super-secure-secret-key-256bit".getBytes());
 
-    private static final long EXPIRY = 24 * 60 * 60 * 1000; // 24 hours
+    private static final long EXPIRY = 24 * 60 * 60 * 1000;
 
     public static String generateToken(String username) {
 

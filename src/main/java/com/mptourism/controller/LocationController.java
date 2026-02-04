@@ -13,16 +13,11 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/locations")
 public class LocationController {
     
-    @GetMapping("/category/{categoryId}")
-    public List<Location> getByCategory(@PathVariable int categoryId) {
-        return LocationData.locations.stream().filter(l -> l.getCategoryId() == categoryId).collect(Collectors.toList());
-    }
+    // @GetMapping("/category/{categoryId}")
+    // public List<Location> getByCategory(@PathVariable int categoryId) {
+    //     return LocationData.locations.stream().filter(l -> l.getCategoryId() == categoryId).collect(Collectors.toList());
+    // }
 
-    @PostMapping
-    public Location addLocation(@RequestBody Location location) {
-        location.setId(LocationData.locations.size() + 1);
-        LocationData.locations.add(location);
-        LocationFileStorage.saveLocations(LocationData.locations);
-        return location;
-    }   
+    
+
 }

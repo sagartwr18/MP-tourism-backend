@@ -10,16 +10,10 @@ import java.util.List;
 @RequestMapping("/api/categories")
 public class CategoryController {
 
-    // GET all categories
-    @GetMapping
-    public List<Category> getAllCategories() {
-        return CategoryData.getAllCategories();
-    }
-
-    // POST add new category
-    @PostMapping
-    public String addCategory(@RequestBody Category category) {
-        CategoryData.addCategory(category);
-        return "Category added successfully";
-    }
+    // // GET all categories
+    // @GetMapping
+    // public List<Category> getAllCategories() {
+    //     return CategoryData.getAllCategories();
+    // }
+    
 }

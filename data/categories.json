@@ -1,57 +1,68 @@
 [
   {
     "id": 1,
-    "name": "Religious Sites",
-    "description": "Sacred temples, mosques, churches and pilgrimage destinations"
+    "name": "Heritage Tourism",
+    "description": "New Text Edited version",
+    "updates": null
   },
   {
     "id": 2,
-    "name": "Historical Places",
-    "description": "Forts, palaces and monuments showcasing MP’s rich history"
+    "name": "Art & Culture",
+    "description": "Forts, palaces and monuments showcasing MP’s rich history",
+    "updates": null
   },
   {
     "id": 3,
-    "name": "Wildlife & Nature",
-    "description": "Dense forests, wildlife sanctuaries and natural landscapes"
+    "name": "Wildlife Tourism",
+    "description": "Dense forests, wildlife sanctuaries and natural landscapes",
+    "updates": null
   },
   {
     "id": 4,
-    "name": "Hill Stations",
-    "description": "Peaceful hill towns with scenic views and pleasant weather"
+    "name": "Adventure Tourism",
+    "description": "Peaceful hill towns with scenic views and pleasant weather",
+    "updates": null
   },
   {
     "id": 5,
-    "name": "Adventure Tourism",
-    "description": "Thrilling activities like trekking, rafting and camping"
+    "name": "Religious Tourism",
+    "description": "Thrilling activities like trekking, rafting and camping",
+    "updates": null
   },
   {
     "id": 6,
-    "name": "Cultural Heritage",
-    "description": "Traditions, art, festivals and cultural landmarks of MP"
+    "name": "Fairs & Festivals",
+    "description": "Traditions, art, festivals and cultural landmarks of MP",
+    "updates": null
   },
   {
     "id": 7,
-    "name": "Lakes & Waterfalls",
-    "description": "Beautiful lakes, rivers and breathtaking waterfalls"
+    "name": "Rural & Sustainable Tourism",
+    "description": "Beautiful lakes, rivers and breathtaking waterfalls",
+    "updates": null
   },
   {
     "id": 8,
-    "name": "National Parks",
-    "description": "Protected reserves famous for tigers and wildlife safaris"
+    "name": "Film Tourism",
+    "description": "Protected reserves famous for tigers and wildlife safaris",
+    "updates": null
   },
   {
     "id": 9,
-    "name": "Museums",
-    "description": "Collections preserving art, history and archaeological finds"
+    "name": "Textile Tourism",
+    "description": "Collections preserving art, history and archaeological finds",
+    "updates": null
   },
   {
     "id": 10,
-    "name": "Food & Cuisine",
-    "description": "Local flavors, street food and traditional MP dishes"
+    "name": "Wellness Tourism",
+    "description": "Local flavors, street food and traditional MP dishes",
+    "updates": null
   },
   {
     "id": 11,
-    "name": "Shopping & Handicrafts",
-    "description": "Local markets, crafts, textiles and souvenirs"
+    "name": "Food Tourism",
+    "description": "Local markets, crafts, textiles and souvenirs",
+    "updates": null
   }
 ]

@@ -12,6 +12,7 @@
 	<groupId>com.mptourism</groupId>
 	<artifactId>mp-tourism-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<name>mp-tourism-backend</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>

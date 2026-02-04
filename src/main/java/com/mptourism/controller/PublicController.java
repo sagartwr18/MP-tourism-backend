@@ -11,8 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mptourism.data.CategoryData;
 import com.mptourism.data.LocationData;
 import com.mptourism.model.Category;
@@ -24,6 +28,7 @@ import com.mptourism.service.PublicService;
 @RequestMapping("/api/public")
 public class PublicController {
 
+    private final ObjectMapper mapper = new ObjectMapper();
     private final PublicService publicService;
     private final LocationDetailsService locationDetailsService;
 
@@ -33,9 +38,21 @@ public class PublicController {
     }
 
     // GET all categories
+    // @GetMapping("/categories")
+    // public List<Category> getCategories() {
+    // return publicService.getCategories();
+    // }
+
     @GetMapping("/categories")
-    public List<Category> getAllCategories() {
-        return publicService.getCategories();
+    public List<Category> getCategories() throws Exception {
+
+        String url = "https://raw.githubusercontent.com/sagartwr18/MP-tourism-backend/main/data/categories.json";
+
+        RestTemplate restTemplate = new RestTemplate();
+        String json = restTemplate.getForObject(url, String.class);
+
+        return mapper.readValue(json, new TypeReference<List<Category>>() {
+        });
     }
 
     @GetMapping("/category/{categoryId}")
@@ -48,11 +65,9 @@ public class PublicController {
 
     @GetMapping("/{categoryId}/locations/{locationId}")
     public ResponseEntity<?> getLocationDetails(
-        @PathVariable int categoryId,
-        @PathVariable int locationId
-    ) {
+            @PathVariable int categoryId,
+            @PathVariable int locationId) {
         return ResponseEntity.ok(
-            locationDetailsService.getLocationDetails(categoryId, locationId)
-        );
+                locationDetailsService.getLocationDetails(categoryId, locationId));
     }
 }

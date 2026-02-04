@@ -18,8 +18,8 @@ import com.mptourism.security.JwtUtil;
 public class PublicService {
 
     private final ObjectMapper mapper = new ObjectMapper();
-    private static final String CATEGORIES_FILE = "https://github.com/sagartwr18/MP-tourism-backend/blob/main/data/categories.json";
-    private static final String LOCATIONS_FILE = "https://github.com/sagartwr18/MP-tourism-backend/blob/main/data/locations.json";
+    private static final String CATEGORIES_FILE = "https://raw.githubusercontent.com/sagartwr18/MP-tourism-backend/main/data/categories.json";
+    private static final String LOCATIONS_FILE = "https://raw.githubusercontent.com/sagartwr18/MP-tourism-backend/main/data/locations.json";
 
     public List<Category> getCategories() {
         try {

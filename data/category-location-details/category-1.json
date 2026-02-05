@@ -1,4 +1,495 @@
 {
-  "categoryId" : 1,
-  "locations" : [ ]
+  "categoryId": 1,
+  "locations": [
+    {
+      "locationId": 12,
+      "name": "Khajuraho",
+      "details": {
+        "overview": "Khajuraho is world-famous for the Khajuraho Group of Monuments, a UNESCO World Heritage Site celebrated for its intricate stone carvings, refined Nagara-style temple architecture, and artistic depictions of life in medieval India.",
+        "howToReach": [
+          "Khajuraho Airport",
+          "Khajuraho Railway Station",
+          "Well-connected by state highways",
+          "Taxis and buses available from Jhansi & Satna"
+        ],
+        "bestTimeToVisit": {
+          "Ideal Season": "October to March",
+          "Weather": "Pleasent winters (8C - 25C)",
+          "Seasonal Highlights": "Khajuraho Dance Festival (February)"
+        },
+        "nearbyAttractions": [
+          "Panna National Park – 27 km",
+          "Raneh Falls – 20 km",
+          "Ajaygarh Fort – 70 km"
+        ],
+        "categoryDetails": {
+          "bestFor": [
+            "Heritage & architecture lovers",
+            "International tourists",
+            "History enthusiasts",
+            "Couples & cultural travelers"
+          ],
+          "keyAttractions": [
+            "Western Group of Temples (Kandariya Mahadev Temple, Lakshmana Temple)",
+            "Eastern Group of Jain Temples (Parshvanatha Temple, Adinatha Temple, Shantinatha Temple)",
+            "Southern Group of Temples (Duladeo Temple, Chaturbhuj Temple)",
+            "Light & Sound Show at Western Group of Temples"
+          ],
+          "timings": {
+            "Temple Visiting Hours": "8:00 AM – 10:00 PM",
+            "Light & Sound Show": "Evening hours (seasonal timings)"
+          },
+          "locationsMap": {
+            "district": "Chhatarpur",
+            "region": "Bundelkhand"
+          },
+          "distanceGuide": {
+            "Bhopal": "371 km",
+            "Indore": "592 km",
+            "Jabalpur": "257 km",
+            "Delhi": "642 km"
+          },
+          "additionalInfo": {
+            "ticketing": "Entry tickets issued by Archaeological Survey of India (ASI) at temple complexes and through authorized online platforms",
+            "lightAndSoundBooking": "Tickets available online via official MP Tourism or authorized government portals and offline at venue counters (subject to availability)"
+          }
+        }
+      }
+    },
+    {
+      "locationId": 13,
+      "name": "Gwalior",
+      "details": {
+        "overview": "Gwalior is one of central India’s most historic cities, dominated by its majestic hilltop fort and rich royal, musical, and architectural legacy. In 2023, Gwalior was officially designated as a “Creative City of Music” under the UNESCO Creative Cities Network (UCCN) in recognition of its exceptional contribution to music and cultural heritage, especially through the Gwalior gharana and its Tansen tradition.",
+        "howToReach": [
+          "Gwalior Airport",
+          "Gwalior Junction Railway Station",
+          "NH-44 and NH-3 road connectivity",
+          "Frequent buses and taxis available"
+        ],
+        "bestTimeToVisit": [
+          "October to March",
+          "Tansen Music Festival (December)"
+        ],
+        "nearbyAttractions": [
+          "Mitawali–Padavali Temples – 40 km",
+          "Bateshwar Temples – 70 km"
+        ],
+        "categoryDetails": {
+          "bestFor": [
+            "History & fort lovers",
+            "Cultural travelers",
+            "Heritage architecture enthusiasts",
+            "Foreign travellers",
+            "Families"
+          ],
+          "keyAttractions": [
+            "Gwalior Fort",
+            "Jai Vilas Palace Museum",
+            "Sas Bahu Temples",
+            "Tansen Tomb"
+          ],
+          "timings": {
+            "Gwalior Fort": "9:00 AM – 5:30 PM",
+            "Jai Vilas Palace Museum": "10:00 AM – 5:00 PM"
+          },
+          "locationsMap": {
+            "district": "Gwalior",
+            "region": "Chambal Region"
+          },
+          "distanceGuide": {
+            "Bhopal": "428 km",
+            "Indore": "600 km",
+            "Jabalpur": "490 km",
+            "Delhi": "353 km"
+          },
+          "additionalInfo": {
+            "ticketing": "ASI tickets available online and at the fort entrance",
+            "museumTickets": "Available at Jai Vilas Palace ticket counter"
+          }
+        }
+      }
+    },
+    {
+      "locationId": 14,
+      "name": "Orchha",
+      "details": {
+        "overview": "Orchha is a beautifully preserved medieval town where Raja Ram Temple holds unique significance as the only temple in India where Lord Ram is worshipped as a reigning King. The town is further defined by the grand Orchha Fort Complex, comprising Raja Mahal, Jahangir Mahal, and Sheesh Mahal, which exemplify refined Bundela architecture. Lining the banks of the Betwa River are the striking royal cenotaphs (Chhatris) of the Bundela rulers, along with historic temples, creating a rare blend of living faith, royal legacy, and architectural heritage.",
+        "howToReach": [
+          "Gwalior Airport – 131 km",
+          "Jhansi Junction – 19 km",
+          "Well connected by road via Jhansi"
+        ],
+        "bestTimeToVisit": [
+          "October to March",
+          "Orchha Festival (March)"
+        ],
+        "nearbyAttractions": [
+          "Jhansi Fort – 18 km",
+          "Datia Palace – 52 km"
+        ],
+        "categoryDetails": {
+          "bestFor": [
+            "Heritage seekers",
+            "Women solo-travelers and women groups",
+            "Slow travelers & photographers",
+            "Couples"
+          ],
+          "keyAttractions": [
+            "Ram Raja Temple",
+            "Jahangir Mahal",
+            "Orchha Fort Complex",
+            "Chhatris (Royal Cenotaphs)"
+          ],
+          "locationsMap": {
+            "district": "Niwari",
+            "region": "Bundelkhand"
+          },
+          "distanceGuide": {
+            "Bhopal": "330 km",
+            "Indore": "535 km",
+            "Jabalpur": "325 km",
+            "Delhi": "486 km"
+          }
+        }
+      }
+    },
+    {
+      "locationId": 15,
+      "name": "Mandu",
+      "details": {
+        "overview": "Mandu (also known as Mandavgad) is a historic fortified city located in the Dhar district of Madhya Pradesh, set amidst the scenic Vindhya ranges. Once known as “Shadiabad” (the City of Joy) during the Mughal period, Mandu flourished as a grand cultural and political center. With a recorded history dating back to the 6th century, the city has been ruled by the Paramaras, Malwa Sultans, Mughals, and Marathas, each leaving a distinct architectural imprint. Mandu is celebrated for its refined Afghan and Indo-Islamic architecture, showcased in iconic monuments such as Jahaz Mahal and Hindola Mahal. The city is also deeply associated with the legendary romance of Rani Roopmati and Baz Bahadur, which continues to shape Mandu’s cultural identity. Surrounded by monsoon-fed lakes, ancient water systems, and sweeping viewpoints, Mandu offers a rare blend of history, architecture, and natural beauty.",
+        "howToReach": [
+          "Indore Airport – 95 km",
+          "Indore Railway Station – 95 km",
+          "Road access from Indore and Dhar"
+        ],
+        "bestTimeToVisit": [
+          "July to March",
+          "Monsoon season enhances scenic beauty"
+        ],
+        "nearbyAttractions": [
+          "Maheshwar – 40 km",
+          "Omkareshwar – 107 km"
+        ],
+        "categoryDetails": {
+          "bestFor": [
+            "Heritage lovers",
+            "Couples",
+            "Architecture & photography enthusiasts"
+          ],
+          "keyAttractions": [
+            "Jahaz Mahal",
+            "Hindola Mahal",
+            "Rani Roopmati Pavilion",
+            "Baz Bahadur Palace"
+          ],
+          "locationsMap": {
+            "district": "Dhar",
+            "region": "Malwa"
+          },
+          "distanceGuide": {
+            "Bhopal": "290 km",
+            "Indore": "95 km",
+            "Jabalpur": "600 km",
+            "Delhi": "865 km"
+          }
+        }
+      }
+    },
+    {
+      "locationId": 16,
+      "name": "Sanchi",
+      "details": {
+        "overview": "Sanchi is one of the most important Buddhist heritage sites in the world, renowned for the Buddhist Monuments at Sanchi, a UNESCO World Heritage Site that includes the Great Stupa commissioned by Emperor Ashoka in the 3rd century BCE.",
+        "howToReach": [
+          "Bhopal Airport – 53 km",
+          "Sanchi Railway Station",
+          "NH-45 road connectivity",
+          "Taxis & buses from Bhopal"
+        ],
+        "bestTimeToVisit": [
+          "October to March",
+          "Pleasant winter weather"
+        ],
+        "nearbyAttractions": [
+          "Udayagiri Caves – 9 km",
+          "Vidisha – 10 km"
+        ],
+        "categoryDetails": {
+          "bestFor": [
+            "Spiritual travelers",
+            "History & archaeology lovers",
+            "International tourists",
+            "Educational groups"
+          ],
+          "keyAttractions": [
+            "Great Stupa (Stupa No.1)",
+            "Ashoka Pillar",
+            "Buddhist monasteries & gateways (Toranas)"
+          ],
+          "timings": {
+            "Visiting Hours": "8:30 AM – 5:30 PM"
+          },
+          "locationsMap": {
+            "district": "Raisen",
+            "region": "Central Madhya Pradesh"
+          },
+          "distanceGuide": {
+            "Bhopal": "48 km",
+            "Indore": "243 km",
+            "Jabalpur": "300 km",
+            "Delhi": "740 km"
+          }
+        }
+      }
+    },
+    {
+      "locationId": 17,
+      "name": "Bhimbetka",
+      "details": {
+        "overview": "Rock Shelters of Bhimbetka is a UNESCO World Heritage Site and one of the world’s most significant prehistoric art complexes, showcasing ancient rock paintings and evidence of human life dating back over 30,000 years. These natural shelters provide an extraordinary window into early human creativity, culture, and settlement patterns over millennia.",
+        "howToReach": [
+          "Bhopal Airport – 55 km",
+          "Bhopal Junction – 45 km",
+          "Road via Bhopal–Hoshangabad Highway"
+        ],
+        "bestTimeToVisit": [
+          "October to March"
+        ],
+        "nearbyAttractions": [
+          "Bhojpur Temple – 25 km",
+          "Van Vihar National Park – 50 km"
+        ],
+        "categoryDetails": {
+          "bestFor": [
+            "History lovers",
+            "Archaeology enthusiasts",
+            "Families & students"
+          ],
+          "keyAttractions": [
+            "Prehistoric cave paintings",
+            "Natural rock formations"
+          ],
+          "timings": {
+            "Visiting Hours": "7:00 AM – 6:00 PM"
+          },
+          "locationsMap": {
+            "district": "Raisen",
+            "region": "Vindhya Range"
+          },
+          "distanceGuide": {
+            "Bhopal": "45 km",
+            "Indore": "241 km",
+            "Jabalpur": "283 km",
+            "Delhi": "820 km"
+          }
+        }
+      }
+    },
+    {
+      "locationId": 18,
+      "name": "Chanderi",
+      "details": {
+        "overview": "Chanderi is a historic town known for its medieval forts, stepwells, and world-famous Chanderi handloom sarees.",
+        "howToReach": [
+          "Gwalior Airport – 220 km",
+          "Lalitpur Railway Station – 42 km",
+          "Road via Ashoknagar"
+        ],
+        "bestTimeToVisit": [
+          "October to March"
+        ],
+        "nearbyAttractions": [
+          "Isagarh Fort – 70 km",
+          "Orchha – 115 km",
+          "Datia – 136 km"
+        ],
+        "categoryDetails": {
+          "bestFor": [
+            "Heritage lovers",
+            "Cultural travelers",
+            "Craft & textile enthusiasts"
+          ],
+          "keyAttractions": [
+            "Chanderi Fort",
+            "Koshak Mahal",
+            "Badal Mahal Gate",
+            "Stepwells (Baolis)"
+          ],
+          "locationsMap": {
+            "district": "Ashoknagar",
+            "region": "Bundelkhand"
+          },
+          "distanceGuide": {
+            "Bhopal": "215 km",
+            "Indore": "395 km",
+            "Jabalpur": "330 km",
+            "Delhi": "581 km"
+          }
+        }
+      }
+    },
+    {
+      "locationId": 19,
+      "name": "Bhopal",
+      "details": {
+        "overview": "Bhopal blends royal Nawabi heritage with modern city life, featuring historic mosques, lakes, and museums.",
+        "howToReach": [
+          "Raja Bhoj Airport",
+          "Bhopal Junction & Rani Kamlapati Railway Station",
+          "Excellent road network"
+        ],
+        "bestTimeToVisit": [
+          "October to March"
+        ],
+        "nearbyAttractions": [
+          "Sanchi – 48 km",
+          "Bhimbetka – 45 km"
+        ],
+        "categoryDetails": {
+          "bestFor": [
+            "Families",
+            "Culture Lovers",
+            "Museum enthusiasts"
+          ],
+          "keyAttractions": [
+            "Taj-ul-Masajid",
+            "Upper lake (Bhojtal)",
+            "Bharat Bhavan",
+            "Shaukat Mahal"
+          ],
+          "locationsMap": {
+            "district": "Bhopal",
+            "region": "Capital of Madhya Pradesh"
+          },
+          "distanceGuide": {
+            "Indore": "198 km",
+            "Jabalpur": "315 km",
+            "Delhi": "780 km"
+          }
+        }
+      }
+    },
+    {
+      "locationId": 20,
+      "name": "Datia",
+      "details": {
+        "overview": "Datia is known for its seven-storey palace built by Raja Bir Singh Deo, an architectural marvel constructed without iron or wood.",
+        "howToReach": [
+          "Gwalior Airport – 87 km",
+          "Datia Railway Station",
+          "NH-119 road connectivity"
+        ],
+        "bestTimeToVisit": [
+          "October to March"
+        ],
+        "nearbyAttractions": [
+          "Orchha – 47 km",
+          "Jhansi – 28 km"
+        ],
+        "categoryDetails": {
+          "bestFor": [
+            "Architecture lovers",
+            "Heritage explorers"
+          ],
+          "keyAttractions": [
+            "Datia Palace (Bir Singh Palace / Satkhanda Mahal)",
+            "Peetambara Peeth"
+          ],
+          "locationsMap": {
+            "district": "Datia",
+            "region": "Bundelkhand"
+          },
+          "distanceGuide": {
+            "Bhopal": "360 km",
+            "Indore": "558 km",
+            "Jabalpur": "370 km",
+            "Delhi": "442 km"
+          }
+        }
+      }
+    },
+    {
+      "locationId": 21,
+      "name": "Jabalpur",
+      "details": {
+        "overview": "Jabalpur is known for its historic forts and natural heritage, especially the Marble Rocks at Bhedaghat.",
+        "howToReach": [
+          "Jabalpur Airport",
+          "Jabalpur Junction",
+          "NH-30 road connectivity"
+        ],
+        "bestTimeToVisit": [
+          "October to March"
+        ],
+        "nearbyAttractions": [
+          "Bhedaghat – 20 km",
+          "Bargi Dam – 35 km"
+        ],
+        "categoryDetails": {
+          "bestFor": [
+            "Families",
+            "Nature & Heritage Lovers"
+          ],
+          "keyAttractions": [
+            "Madan Mahal Fort",
+            "Marble Rocks",
+            "Dhuandhar Falls",
+            "64 Yogini Temple",
+            "Narmada Ghat"
+          ],
+          "locationsMap": {
+            "district": "Jabalpur",
+            "region": "Mahakoshal Region"
+          },
+          "distanceGuide": {
+            "Bhopal": "315 km",
+            "Indore": "533 km",
+            "Delhi": "860 km"
+          }
+        }
+      }
+    },
+    {
+      "locationId": 22,
+      "name": "Burhanpur",
+      "details": {
+        "overview": "Burhanpur is a prominent Mughal-era heritage city known for its historic mosques, forts, royal hammams, and planned urban fabric. The city is especially renowned for its remarkable Mughal-period underground water management system known as Kundi Bhandara (Khooni Bhandara)—an ingenious network of subterranean tunnels, aqueducts, and reservoirs designed to supply water to the city through gravity-based engineering. This sophisticated system reflects Burhanpur's historical importance as a major administrative and military center on the Mughal Deccan route, combining architectural grandeur with advanced hydraulic planning.",
+        "howToReach": [
+          "Indore Airport - 187 km",
+          "Burhanpur Railway Station",
+          "NH-52 road connectivity"
+        ],
+        "bestTimeToVisit": [
+          "October to February"
+        ],
+        "nearbyAttractions": [
+          "Asirgarh Fort – 25 km",
+          "Ichhapur – 23 km"
+        ],
+        "categoryDetails": {
+          "bestFor": [
+            "History lovers",
+            "Heritage travelers"
+          ],
+          "keyAttractions": [
+            "Shahi Qila",
+            "Jama Masjid",
+            "Hammam of Shah Jahan"
+          ],
+          "locationsMap": {
+            "district": "Burhanpur",
+            "region": "Nimar"
+          },
+          "distanceGuide": {
+            "Bhopal": "344 km",
+            "Indore": "182 km",
+            "Jabalpur": "550 km",
+            "Delhi": "970 km"
+          }
+        }
+      }
+    }
+  ]
 }

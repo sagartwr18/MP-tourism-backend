@@ -9,6 +9,8 @@ import com.mptourism.model.LocationUpdateRequest;
 import com.mptourism.storage.CategoryFileStorage;
 import com.mptourism.util.JsonUpdateUtil;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,8 @@ import java.util.Map;
 
 @Service
 public class AdminService {
+
+    private static final Logger logger = LoggerFactory.getLogger(AdminService.class);
 
     @Autowired
     private final ObjectMapper mapper = new ObjectMapper();
@@ -271,17 +275,23 @@ public class AdminService {
             String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
             String commitMessage = String.format("%s: %s at %s", changeType, fileName, timestamp);
 
+            logger.info("Attempting to push {} to GitHub", fileName);
+            logger.info("GitHub API configured: {}", gitHubApiService.isConfigured());
+
             // Try GitHub API first if configured
             if (gitHubApiService.isConfigured()) {
                 File file = new File(fileName);
                 String content = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(mapper.readTree(file));
+                logger.info("Calling GitHub API to update {}", fileName);
                 gitHubApiService.updateFileAsync(fileName, content, commitMessage);
+                logger.info("GitHub API call initiated for {}", fileName);
             } else {
                 // Fall back to local git commands
+                logger.info("GitHub token not configured, using local git commands");
                 gitService.commitAndPushAsync(fileName, changeType);
             }
         } catch (Exception e) {
-            System.err.println("Failed to push to GitHub: " + e.getMessage());
+            logger.error("Failed to push to GitHub: {}", e.getMessage(), e);
         }
     }
 

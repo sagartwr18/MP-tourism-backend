@@ -1,17 +1,22 @@
-[ {
-  "id" : 1,
-  "username" : "sagartwr",
-  "password" : "12345678"
-}, {
-  "id" : 2,
-  "username" : "sagartwr18@gmail.com",
-  "password" : "Sagartwr@9301"
-}, {
-  "id" : 3,
-  "username" : "newAdmin",
-  "password" : "1234"
-}, {
-  "id" : 4,
-  "username" : "sagartwr18@g",
-  "password" : "Sagartwr@"
-} ]
+[
+  {
+    "id": 1,
+    "username": "sagartwr",
+    "password": "12345678"
+  },
+  {
+    "id": 2,
+    "username": "sagartwr18@gmail.com",
+    "password": "Sagartwr@9301"
+  },
+  {
+    "id": 3,
+    "username": "newAdmin",
+    "password": "1234"
+  },
+  {
+    "id": 4,
+    "username": "sagartwr18@g",
+    "password": "Sagartwr@"
+  }
+]

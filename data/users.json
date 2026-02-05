@@ -10,4 +10,8 @@
   "id" : 3,
   "username" : "newAdmin",
   "password" : "1234"
+}, {
+  "id" : 4,
+  "username" : "sagartwr18@g",
+  "password" : "Sagartwr@"
 } ]

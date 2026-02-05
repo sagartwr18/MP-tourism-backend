@@ -12,7 +12,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.mptourism.model.User;
 import com.mptourism.model.Category;
 import com.mptourism.model.Location;
 import com.mptourism.security.JwtUtil;

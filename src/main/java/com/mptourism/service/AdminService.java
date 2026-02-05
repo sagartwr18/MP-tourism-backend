@@ -23,9 +23,11 @@ public class AdminService {
     @Autowired
     private final ObjectMapper mapper = new ObjectMapper();
     private final CategoryFileStorage categoryFileStorage;
+    private final GitService gitService;
 
-    public AdminService(CategoryFileStorage categoryFileStorage) {
+    public AdminService(CategoryFileStorage categoryFileStorage, GitService gitService) {
         this.categoryFileStorage = categoryFileStorage;
+        this.gitService = gitService;
     }
 
     public Category addCategory(Category category) {
@@ -41,6 +43,9 @@ public class AdminService {
 
         categoryFileStorage.saveCategories(categories);
         createCategoryLocationFile(nextId);
+
+        // Trigger async git commit
+        gitService.commitAndPushAsync("data/categories.json", "ADD CATEGORY");
 
         return category;
     }
@@ -71,6 +76,9 @@ public class AdminService {
 
                     mapper.writerWithDefaultPrettyPrinter()
                             .writeValue(file, categories);
+
+                    // Trigger async git commit
+                    gitService.commitAndPushAsync("data/categories.json", "UPDATE CATEGORY");
 
                     return node;
                 }
@@ -113,6 +121,9 @@ public class AdminService {
 
             createCategoryLocationFile(request.getCategoryId());
 
+            // Trigger async git commit
+            gitService.commitAndPushAsync("data/locations.json", "ADD LOCATION");
+
         } catch (Exception e) {
             throw new RuntimeException("Failed to add location", e);
         }
@@ -145,6 +156,9 @@ public class AdminService {
                     mapper.writerWithDefaultPrettyPrinter()
                             .writeValue(file, locations);
 
+                    // Trigger async git commit
+                    gitService.commitAndPushAsync("data/locations.json", "UPDATE LOCATION");
+
                     return node;
                 }
             }
@@ -165,9 +179,8 @@ public class AdminService {
     public JsonNode updateCategoryLocation(LocationUpdateRequest request) {
 
         try {
-            File file = new File(
-                    "data/category-location-details/category-" +
-                            request.getCategoryId() + ".json");
+            String fileName = "data/category-location-details/category-" + request.getCategoryId() + ".json";
+            File file = new File(fileName);
 
             JsonNode root = mapper.readTree(file);
             ArrayNode locations = (ArrayNode) root.get("locations");
@@ -186,6 +199,9 @@ public class AdminService {
                     mapper.writerWithDefaultPrettyPrinter()
                             .writeValue(file, root);
 
+                    // Trigger async git commit
+                    gitService.commitAndPushAsync(fileName, "UPDATE LOCATION DETAILS");
+
                     return location;
                 }
             }
@@ -202,8 +218,8 @@ public class AdminService {
             List<Map<String, Object>> newLocations) {
 
         try {
-            File file = new File(
-                    "data/category-location-details/category-" + categoryId + ".json");
+            String fileName = "data/category-location-details/category-" + categoryId + ".json";
+            File file = new File(fileName);
 
             JsonNode root = mapper.readTree(file);
             ArrayNode locationsNode = (ArrayNode) root.get("locations");
@@ -232,6 +248,9 @@ public class AdminService {
             mapper.writerWithDefaultPrettyPrinter()
                     .writeValue(file, root);
 
+            // Trigger async git commit
+            gitService.commitAndPushAsync(fileName, "ADD LOCATIONS TO CATEGORY");
+
             return added;
 
         } catch (Exception e) {
@@ -248,8 +267,8 @@ public class AdminService {
     private void createCategoryLocationFile(int categoryId) {
 
         try {
-            File file = new File(
-                    "data/category-location-details/category-" + categoryId + ".json");
+            String fileName = "data/category-location-details/category-" + categoryId + ".json";
+            File file = new File(fileName);
 
             if (!file.getParentFile().exists()) {
                 file.getParentFile().mkdirs();
@@ -262,6 +281,9 @@ public class AdminService {
 
                 mapper.writerWithDefaultPrettyPrinter()
                         .writeValue(file, root);
+
+                // Trigger async git commit for new file
+                gitService.commitAndPushAsync(fileName, "ADD CATEGORY LOCATION FILE");
             }
 
         } catch (Exception e) {

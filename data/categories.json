@@ -1,11 +1,6 @@
 [ {
   "id" : 1,
-  "name" : "Hill Stations",
+  "name" : "New Name2",
   "description" : "Beautiful hill locations",
-  "updates" : null
-}, {
-  "id" : 2,
-  "name" : "Heritage Tourism",
-  "description" : "Beautiful locations",
   "updates" : null
 } ]

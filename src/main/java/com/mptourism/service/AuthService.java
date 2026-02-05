@@ -28,7 +28,7 @@ public class AuthService {
     // private final PasswordEncoder passwordEncoder;
     private final ObjectMapper mapper = new ObjectMapper();
     private final CategoryFileStorage categoryStorage;
-    private static final String USERS_FILE = "https://raw.githubusercontent.com/sagartwr18/MP-tourism-backend/main/data/locations.json";
+    private static final String USERS_FILE = "https://raw.githubusercontent.com/sagartwr18/MP-tourism-backend/main/data/users.json";
 
     public AuthService(CategoryFileStorage categoryStorage) {
         this.categoryStorage = categoryStorage;

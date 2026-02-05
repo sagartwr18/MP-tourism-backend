@@ -37,6 +37,9 @@ public class GitService {
      */
     public String commitAndPush(String fileName, String changeType) {
         try {
+            // Clean up stale lock file if exists
+            cleanupGitLock();
+
             String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
             String commitMessage = String.format("%s: %s at %s", changeType, fileName, timestamp);
 
@@ -63,6 +66,9 @@ public class GitService {
     public CompletableFuture<String> autoCommitAllAsync(String description) {
         return CompletableFuture.supplyAsync(() -> {
             try {
+                // Clean up stale lock file if exists
+                cleanupGitLock();
+
                 String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
                 String commitMessage = String.format("Auto-update: %s at %s", description, timestamp);
 
@@ -76,6 +82,16 @@ public class GitService {
                 return "Error during auto-commit: " + e.getMessage();
             }
         });
+    }
+
+    /**
+     * Clean up stale git lock file to prevent concurrent access issues
+     */
+    private void cleanupGitLock() {
+        File lockFile = new File(PROJECT_ROOT + "/.git/index.lock");
+        if (lockFile.exists()) {
+            lockFile.delete();
+        }
     }
 
     private void runGitCommand(String... command) throws Exception {

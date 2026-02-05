@@ -31,3 +31,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Application properties (contains secrets - DO NOT commit)
+src/main/resources/application.properties
+
+# GitHub Token (if accidentally committed)
+github.token=

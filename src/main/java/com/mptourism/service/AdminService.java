@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -23,10 +25,12 @@ public class AdminService {
     @Autowired
     private final ObjectMapper mapper = new ObjectMapper();
     private final CategoryFileStorage categoryFileStorage;
+    private final GitHubApiService gitHubApiService;
     private final GitService gitService;
 
-    public AdminService(CategoryFileStorage categoryFileStorage, GitService gitService) {
+    public AdminService(CategoryFileStorage categoryFileStorage, GitHubApiService gitHubApiService, GitService gitService) {
         this.categoryFileStorage = categoryFileStorage;
+        this.gitHubApiService = gitHubApiService;
         this.gitService = gitService;
     }
 
@@ -44,8 +48,8 @@ public class AdminService {
         categoryFileStorage.saveCategories(categories);
         createCategoryLocationFile(nextId);
 
-        // Trigger async git commit
-        gitService.commitAndPushAsync("data/categories.json", "ADD CATEGORY");
+        // Push to GitHub
+        pushToGitHub("data/categories.json", "ADD CATEGORY");
 
         return category;
     }
@@ -77,8 +81,8 @@ public class AdminService {
                     mapper.writerWithDefaultPrettyPrinter()
                             .writeValue(file, categories);
 
-                    // Trigger async git commit
-                    gitService.commitAndPushAsync("data/categories.json", "UPDATE CATEGORY");
+                    // Push to GitHub
+                    pushToGitHub("data/categories.json", "UPDATE CATEGORY");
 
                     return node;
                 }
@@ -121,8 +125,8 @@ public class AdminService {
 
             createCategoryLocationFile(request.getCategoryId());
 
-            // Trigger async git commit
-            gitService.commitAndPushAsync("data/locations.json", "ADD LOCATION");
+            // Push to GitHub
+            pushToGitHub("data/locations.json", "ADD LOCATION");
 
         } catch (Exception e) {
             throw new RuntimeException("Failed to add location", e);
@@ -156,8 +160,8 @@ public class AdminService {
                     mapper.writerWithDefaultPrettyPrinter()
                             .writeValue(file, locations);
 
-                    // Trigger async git commit
-                    gitService.commitAndPushAsync("data/locations.json", "UPDATE LOCATION");
+                    // Push to GitHub
+                    pushToGitHub("data/locations.json", "UPDATE LOCATION");
 
                     return node;
                 }
@@ -170,11 +174,6 @@ public class AdminService {
         }
     }
 
-    /*
-     * =========================
-     * CATEGORY LOCATION DETAILS
-     * =========================
-     */
 
     public JsonNode updateCategoryLocation(LocationUpdateRequest request) {
 
@@ -199,8 +198,8 @@ public class AdminService {
                     mapper.writerWithDefaultPrettyPrinter()
                             .writeValue(file, root);
 
-                    // Trigger async git commit
-                    gitService.commitAndPushAsync(fileName, "UPDATE LOCATION DETAILS");
+                    // Push to GitHub
+                    pushToGitHub(fileName, "UPDATE LOCATION DETAILS");
 
                     return location;
                 }
@@ -248,8 +247,8 @@ public class AdminService {
             mapper.writerWithDefaultPrettyPrinter()
                     .writeValue(file, root);
 
-            // Trigger async git commit
-            gitService.commitAndPushAsync(fileName, "ADD LOCATIONS TO CATEGORY");
+            // Push to GitHub
+            pushToGitHub(fileName, "ADD LOCATIONS TO CATEGORY");
 
             return added;
 
@@ -263,6 +262,28 @@ public class AdminService {
      * INTERNAL HELPERS
      * =========================
      */
+
+    /**
+     * Push file changes to GitHub using GitHub API or local git
+     */
+    private void pushToGitHub(String fileName, String changeType) {
+        try {
+            String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            String commitMessage = String.format("%s: %s at %s", changeType, fileName, timestamp);
+
+            // Try GitHub API first if configured
+            if (gitHubApiService.isConfigured()) {
+                File file = new File(fileName);
+                String content = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(mapper.readTree(file));
+                gitHubApiService.updateFileAsync(fileName, content, commitMessage);
+            } else {
+                // Fall back to local git commands
+                gitService.commitAndPushAsync(fileName, changeType);
+            }
+        } catch (Exception e) {
+            System.err.println("Failed to push to GitHub: " + e.getMessage());
+        }
+    }
 
     private void createCategoryLocationFile(int categoryId) {
 
@@ -282,8 +303,8 @@ public class AdminService {
                 mapper.writerWithDefaultPrettyPrinter()
                         .writeValue(file, root);
 
-                // Trigger async git commit for new file
-                gitService.commitAndPushAsync(fileName, "ADD CATEGORY LOCATION FILE");
+                // Push new file to GitHub
+                pushToGitHub(fileName, "ADD CATEGORY LOCATION FILE");
             }
 
         } catch (Exception e) {

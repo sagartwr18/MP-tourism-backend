@@ -1,22 +1,26 @@
 [
   {
     "id": 1,
+    "name" : "Sagar Tiwari",
     "username": "sagartwr",
     "password": "12345678"
   },
   {
     "id": 2,
+    "name" : "Sagar Tiwari",
     "username": "sagartwr18@gmail.com",
     "password": "Sagartwr@9301"
   },
   {
     "id": 3,
-    "username": "newAdmin",
-    "password": "1234"
+    "name" : "Pratham Singh Gajjam",
+    "username": "pratham@12",
+    "password": "123456"
   },
   {
     "id": 4,
-    "username": "sagartwr18@g",
-    "password": "Sagartwr@"
+    "name" : "Pratham Singh Gajjam",
+    "username": "singh@34",
+    "password": "gajjam@123"
   }
 ]

@@ -35,48 +35,4 @@ public class SecurityConfig {
 
         return http.build();
     }
-
-    // @Bean
-    // public JwtAuthFilter jwtAuthFilter() {
-    // return new JwtAuthFilter();
-    // }
 }
-
-// @Configuration
-// public class SecurityConfig {
-
-// private final JwtAuthFilter jwtAuthFilter;
-
-// public SecurityConfig(JwtAuthFilter jwtAuthFilter) {
-// this.jwtAuthFilter = jwtAuthFilter;
-// }
-
-// @Bean
-// public PasswordEncoder passwordEncoder() {
-// return new BCryptPasswordEncoder();
-// }
-
-// @Bean
-// public SecurityFilterChain securityFilterChain(HttpSecurity http) throws
-// Exception {
-
-// http
-// .csrf(csrf -> csrf.disable())
-// .sessionManagement(session ->
-// session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-// .authorizeHttpRequests(auth -> auth
-
-// // ✅ PUBLIC APIs (NO AUTH)
-// .requestMatchers("/api/public/**").permitAll()
-// // .requestMatchers("/api/auth/**").permitAll()
-
-// // 🔐 ALL OTHER APIs REQUIRE LOGIN
-// .requestMatchers("/api/**").authenticated()
-
-// .anyRequest().denyAll())
-// .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-
-// return http.build();
-// }
-
-// }

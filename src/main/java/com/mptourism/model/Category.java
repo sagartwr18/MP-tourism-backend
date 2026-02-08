@@ -1,29 +1,35 @@
 package com.mptourism.model;
 
-import java.util.Map;
-import java.util.List;
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "categories")
 public class Category {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    
+    @Column(nullable = false)
     private String name;
+    
+    @Column(columnDefinition = "TEXT")
     private String description;
+    
+    @Column(name = "is_active")
+    private Boolean isActive = true;
+    
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
-    // private List<Map<String, Object>> category;
-    private Map<String, Object> updates;
+    public Category() {}
 
-    // REQUIRED for Jackson (VERY IMPORTANT)
-    public Category() {
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
     }
 
-    // Parameterized constructor (for manual creation)
-    public Category(int id, String name, String description) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-    }
-
-    // Getters & Setters (REQUIRED)
     public int getId() {
         return id;
     }
@@ -46,13 +52,21 @@ public class Category {
 
     public void setDescription(String description) {
         this.description = description;
-    } 
-
-    public Map<String, Object> getUpdates() {
-        return updates;
     }
 
-    public void setUpdates(Map<String, Object> updates) {
-        this.updates = updates;
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }

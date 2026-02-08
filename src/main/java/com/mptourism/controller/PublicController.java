@@ -1,23 +1,16 @@
 package com.mptourism.controller;
 
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.mptourism.data.CategoryData;
-import com.mptourism.data.LocationData;
 import com.mptourism.model.Category;
 import com.mptourism.model.Location;
-import com.mptourism.service.LocationDetailsService;
 import com.mptourism.service.PublicService;
 
 @RestController
@@ -25,11 +18,9 @@ import com.mptourism.service.PublicService;
 public class PublicController {
 
     private final PublicService publicService;
-    private final LocationDetailsService locationDetailsService;
 
-    public PublicController(PublicService publicService, LocationDetailsService locationDetailsService) {
+    public PublicController(PublicService publicService) {
         this.publicService = publicService;
-        this.locationDetailsService = locationDetailsService;
     }
 
     // ✅ GET ALL CATEGORIES
@@ -40,18 +31,11 @@ public class PublicController {
 
     // ✅ GET LOCATIONS BY CATEGORY
     @GetMapping("/category/{categoryId}")
-    public ResponseEntity<List<Location>> getByCategory(
-            @PathVariable int categoryId) {
-
-        List<Location> locations = publicService.getLocations()
-                .stream()
-                .filter(l -> l.getCategoryId() == categoryId)
-                .toList();
-
-        return ResponseEntity.ok(locations);
+    public ResponseEntity<List<Location>> getByCategory(@PathVariable int categoryId) {
+        return ResponseEntity.ok(publicService.getLocationsByCategory(categoryId));
     }
 
-    @GetMapping("/{categoryId}/locations/{locationId}")
+    @GetMapping("/{categoryId}/location/{locationId}")
     public ResponseEntity<?> getLocationDetails(
         @PathVariable int categoryId,
         @PathVariable int locationId

@@ -27,58 +27,6 @@ public class AuthController {
         this.authService = authService;
     }
 
-    // @PostMapping("/addcategories")
-    // public Category addCategory(
-    //         @RequestHeader("Authorization") String token,
-    //         @RequestBody Category category) {
-    //     return authService.addCategory(category);
-    // }
-
-    // @PostMapping("/addlocation")
-    // public ResponseEntity<?> addLocation(
-    //         @RequestHeader("Authorization") String token,
-    //         @RequestBody Location request) {
-    //     authService.addLocation(request);
-    //     return ResponseEntity.ok("Location added successfully");
-    // }
-
-    // @PostMapping("/update-location-details")
-    // public ResponseEntity<?> updateCategoryLocation(
-    //         @RequestHeader("Authorization") String token,
-    //         @RequestBody LocationUpdateRequest request) {
-        
-    //     return ResponseEntity.ok(
-    //             authService.updateCategoryLocation(request));
-    // }
-
-    // @PutMapping("/update-category/{id}")
-    // public ResponseEntity<JsonNode> updateCategory(
-    //         @RequestHeader("Authorization") String token,
-    //         @PathVariable int id,
-    //         @RequestBody Map<String, String> body) {
-
-    //     JsonNode updated = authService.updateCategory(
-    //             id,
-    //             body.get("name"),
-    //             body.get("description"));
-
-    //     return ResponseEntity.ok(updated);
-    // }
-
-    // @PutMapping("/update-location/{id}")
-    // public ResponseEntity<JsonNode> updateLocation(
-    //         @RequestHeader("Authorization") String token,
-    //         @PathVariable int id,
-    //         @RequestBody Map<String, String> body) {
-
-    //     JsonNode updated = authService.updateLocation(
-    //             id,
-    //             body.get("name"),
-    //             body.get("city"));
-
-    //     return ResponseEntity.ok(updated);
-    // }
-
     @PostMapping("/register")
     public String register(@RequestBody RegisterRequest request) {
         authService.register(request);

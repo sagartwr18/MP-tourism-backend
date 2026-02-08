@@ -1,80 +1,66 @@
 package com.mptourism.service;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.mptourism.model.Category;
 import com.mptourism.model.Location;
-import com.mptourism.security.JwtUtil;
+import com.mptourism.model.LocationDetail;
+import com.mptourism.repository.CategoryRepository;
+import com.mptourism.repository.LocationDetailRepository;
+import com.mptourism.repository.LocationRepository;
 
 @Service
 public class PublicService {
 
-    private final ObjectMapper mapper = new ObjectMapper();
-    private final RestTemplate restTemplate = new RestTemplate();
-    private static final String LOCATIONS_URL = "https://raw.githubusercontent.com/sagartwr18/MP-tourism-backend/main/data/locations.json";
-    private static final String CATEGORIES_URL = "https://raw.githubusercontent.com/sagartwr18/MP-tourism-backend/main/data/categories.json";
-    private static final String BASE_URL = "https://raw.githubusercontent.com/sagartwr18/MP-tourism-backend/main/data/category-location-details/";
+    private final CategoryRepository categoryRepository;
+    private final LocationRepository locationRepository;
+    private final LocationDetailRepository locationDetailRepository;
+    private final ObjectMapper mapper;
+
+    public PublicService(
+            CategoryRepository categoryRepository,
+            LocationRepository locationRepository,
+            LocationDetailRepository locationDetailRepository) {
+        this.categoryRepository = categoryRepository;
+        this.locationRepository = locationRepository;
+        this.locationDetailRepository = locationDetailRepository;
+        
+        this.mapper = new ObjectMapper();
+        this.mapper.registerModule(new JavaTimeModule());
+        this.mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+    }
 
     public List<Category> getCategories() {
-        try {
-            String json = restTemplate.getForObject(CATEGORIES_URL, String.class);
-            return mapper.readValue(json, new TypeReference<List<Category>>() {
-            });
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to load categories", e);
-        }
+        return categoryRepository.findByIsActiveTrue();
     }
 
     public List<Location> getLocations() {
-        try {
-            String json = restTemplate.getForObject(LOCATIONS_URL, String.class);
-            return mapper.readValue(json, new TypeReference<List<Location>>() {
-            });
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to load locations", e);
-        }
+        return locationRepository.findAll();
+    }
+
+    public List<Location> getLocationsByCategory(int categoryId) {
+        return locationRepository.findByCategoryId(categoryId);
     }
 
     public JsonNode getLocationDetails(int categoryId, int locationId) {
-
-        try {
-            String url = BASE_URL + "category-" + categoryId + ".json";
-
-            String json = restTemplate.getForObject(url, String.class);
-
-            if (json == null || json.isEmpty()) {
-                throw new RuntimeException("Category file is empty or missing");
+        Optional<LocationDetail> detailOpt = locationDetailRepository.findByLocationIdAndCategoryId(locationId, categoryId);
+        
+        if (detailOpt.isPresent()) {
+            LocationDetail detail = detailOpt.get();
+            try {
+                return mapper.valueToTree(detail);
+            } catch (Exception e) {
+                throw new RuntimeException("Failed to convert location details to JSON", e);
             }
-
-            JsonNode rootNode = mapper.readTree(json);
-
-            if (!rootNode.has("locations") || !rootNode.get("locations").isArray()) {
-                throw new RuntimeException("Invalid category file structure");
-            }
-
-            ArrayNode locations = (ArrayNode) rootNode.get("locations");
-
-            for (JsonNode location : locations) {
-                if (location.has("locationId")
-                        && location.get("locationId").asInt() == locationId) {
-                    return location;
-                }
-            }
-
-            throw new RuntimeException("Location not found");
-
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to fetch location details", e);
         }
+        
+        throw new RuntimeException("Location not found");
     }
 }

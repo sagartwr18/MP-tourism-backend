@@ -1,24 +1,32 @@
 package com.mptourism.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 import java.time.LocalDateTime;
+import java.util.Map;
 
 @Entity
-@Table(name = "locations")
-public class Location {
-    
+@Table(name = "location_info")
+public class LocationDetail {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
+    @Column(name = "location_id")
+    private int locationId;
+    
     @Column(nullable = false)
     private String name;
     
-    @Column(name = "district")
-    private String district;
-    
     @Column(name = "category_id")
     private int categoryId;
+    
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "jsonb")
+    private Map<String, Object> details;
     
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -26,14 +34,7 @@ public class Location {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    public Location() {}
-
-    public Location(int id, String name, String district, int categoryId) {
-        this.id = id;
-        this.name = name;
-        this.district = district;
-        this.categoryId = categoryId;
-    }
+    public LocationDetail() {}
 
     @PrePersist
     protected void onCreate() {
@@ -54,6 +55,14 @@ public class Location {
         this.id = id;
     }
 
+    public int getLocationId() {
+        return locationId;
+    }
+
+    public void setLocationId(int locationId) {
+        this.locationId = locationId;
+    }
+
     public String getName() {
         return name;
     }
@@ -62,20 +71,20 @@ public class Location {
         this.name = name;
     }
 
-    public String getCity() {
-        return district;
-    }
-
-    public void setCity(String district) {
-        this.district = district;
-    }
-
     public int getCategoryId() {
         return categoryId;
     }
 
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public Map<String, Object> getDetails() {
+        return details;
+    }
+
+    public void setDetails(Map<String, Object> details) {
+        this.details = details;
     }
 
     public LocalDateTime getCreatedAt() {

@@ -28,31 +28,6 @@ public class AdminController {
         return ResponseEntity.ok(adminService.addCategory(category));
     }
 
-    // ✅ ADD LOCATION
-    @PostMapping("/addlocation")
-    public ResponseEntity<?> addLocation(@RequestBody Location request) {
-        adminService.addLocation(request);
-        return ResponseEntity.ok("Location added successfully");
-    }
-
-    // ✅ ADD MULTIPLE LOCATIONS TO CATEGORY
-    @PostMapping("/category/{categoryId}/locations")
-    public ResponseEntity<?> addLocationToCategory(
-            @PathVariable int categoryId,
-            @RequestBody LocationUpdateRequest request) {
-
-        List<JsonNode> addedLocations =
-                adminService.addLocationToCategory(categoryId, request.getLocations());
-
-        return ResponseEntity.ok(
-                Map.of(
-                        "message", "Locations added successfully",
-                        "addedCount", addedLocations.size(),
-                        "locations", addedLocations
-                )
-        );
-    }
-
     // ✅ UPDATE CATEGORY DETAILS
     @PutMapping("/editcategory/{id}")
     public ResponseEntity<JsonNode> updateCategory(
@@ -68,19 +43,22 @@ public class AdminController {
         return ResponseEntity.ok(updated);
     }
 
-    // ✅ UPDATE LOCATION DETAILS
-    @PutMapping("/editlocation/{id}")
-    public ResponseEntity<JsonNode> updateLocation(
-            @PathVariable int id,
-            @RequestBody Map<String, String> body) {
+    // ✅ ADD SINGLE OR MULTIPLE LOCATIONS TO ONE CATEGORY
+    @PostMapping("/category/{categoryId}/locations")
+    public ResponseEntity<?> addLocationToCategory(
+            @PathVariable int categoryId,
+            @RequestBody LocationUpdateRequest request) {
 
-        JsonNode updated = adminService.updateLocation(
-                id,
-                body.get("name"),
-                body.get("city")
+        List<JsonNode> addedLocations =
+                adminService.addLocationToCategory(categoryId, request.getLocations());
+
+        return ResponseEntity.ok(
+                Map.of(
+                        "message", "Locations added successfully",
+                        "addedCount", addedLocations.size(),
+                        "locations", addedLocations
+                )
         );
-
-        return ResponseEntity.ok(updated);
     }
 
     // ✅ UPDATE CATEGORY LOCATION DETAILS (BULK)

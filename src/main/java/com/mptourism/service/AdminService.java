@@ -1,324 +1,203 @@
 package com.mptourism.service;
 
-import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.mptourism.model.Category;
 import com.mptourism.model.Location;
+import com.mptourism.model.LocationDetail;
 import com.mptourism.model.LocationUpdateRequest;
-import com.mptourism.storage.CategoryFileStorage;
-import com.mptourism.util.JsonUpdateUtil;
+import com.mptourism.repository.CategoryRepository;
+import com.mptourism.repository.LocationDetailRepository;
+import com.mptourism.repository.LocationRepository;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class AdminService {
 
-    private static final Logger logger = LoggerFactory.getLogger(AdminService.class);
+    private final CategoryRepository categoryRepository;
+    private final LocationRepository locationRepository;
+    private final LocationDetailRepository locationDetailRepository;
+    private final ObjectMapper mapper;
 
-    @Autowired
-    private final ObjectMapper mapper = new ObjectMapper();
-    private final CategoryFileStorage categoryFileStorage;
-    private final GitHubApiService gitHubApiService;
-    private final GitService gitService;
-
-    public AdminService(CategoryFileStorage categoryFileStorage, GitHubApiService gitHubApiService, GitService gitService) {
-        this.categoryFileStorage = categoryFileStorage;
-        this.gitHubApiService = gitHubApiService;
-        this.gitService = gitService;
+    public AdminService(
+            CategoryRepository categoryRepository,
+            LocationRepository locationRepository,
+            LocationDetailRepository locationDetailRepository
+        ) {
+        this.categoryRepository = categoryRepository;
+        this.locationRepository = locationRepository;
+        this.locationDetailRepository = locationDetailRepository;
+        this.mapper = new ObjectMapper();
+        this.mapper.registerModule(new JavaTimeModule());
+        this.mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     }
 
     public Category addCategory(Category category) {
-
-        List<Category> categories = categoryFileStorage.loadCategories();
-
-        int nextId = categories.isEmpty()
-                ? 1
-                : categories.get(categories.size() - 1).getId() + 1;
-
-        category.setId(nextId);
-        categories.add(category);
-
-        categoryFileStorage.saveCategories(categories);
-        createCategoryLocationFile(nextId);
-
-        // Push to GitHub
-        pushToGitHub("data/categories.json", "ADD CATEGORY");
-
-        return category;
+        // Don't set ID manually - let JPA auto-generate it
+        Category saved = categoryRepository.save(category);
+        return saved;
     }
 
     public JsonNode updateCategory(int categoryId, String name, String description) {
+        Optional<Category> catOpt = categoryRepository.findById(categoryId);
 
-        try {
-            File file = new File("data/categories.json");
-            ArrayNode categories = (ArrayNode) mapper.readTree(file);
-
-            String updatedName = name;
-            for (JsonNode category : categories) {
-
-                if (!category.has("id"))
-                    continue;
-
-                if (category.get("id").asInt() == categoryId) {
-
-                    ObjectNode node = (ObjectNode) category;
-
-                    if (name != null && !name.isBlank()) {
-                        node.put("name", name);
-                        updatedName = name;
-                    }
-                    if (description != null && !description.isBlank()) {
-                        node.put("description", description);
-                    }
-
-                    mapper.writerWithDefaultPrettyPrinter()
-                            .writeValue(file, categories);
-
-                    // Push to GitHub
-                    pushToGitHub("data/categories.json", "UPDATE CATEGORY");
-
-                    return node;
-                }
-            }
-
+        if (catOpt.isEmpty()) {
             throw new RuntimeException("Category not found: " + categoryId);
-
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to update category", e);
         }
-    }
 
-    public void addLocation(Location request) {
+        Category category = catOpt.get();
+        if (name != null && !name.isBlank()) {
+            category.setName(name);
+        }
+        if (description != null && !description.isBlank()) {
+            category.setDescription(description);
+        }
+
+        Category updated = categoryRepository.save(category);
 
         try {
-            File file = new File("data/locations.json");
-            file.getParentFile().mkdirs();
-
-            ArrayNode locations = file.exists() && file.length() > 0
-                    ? (ArrayNode) mapper.readTree(file)
-                    : mapper.createArrayNode();
-
-            int nextId = 1;
-            for (JsonNode loc : locations) {
-                if (loc.has("id")) {
-                    nextId = Math.max(nextId, loc.get("id").asInt() + 1);
-                }
-            }
-
-            ObjectNode newLocation = mapper.createObjectNode();
-            newLocation.put("id", nextId);
-            newLocation.put("name", request.getName());
-            newLocation.put("city", request.getCity());
-            newLocation.put("categoryId", request.getCategoryId());
-
-            locations.add(newLocation);
-
-            mapper.writerWithDefaultPrettyPrinter()
-                    .writeValue(file, locations);
-
-            createCategoryLocationFile(request.getCategoryId());
-
-            // Push to GitHub
-            pushToGitHub("data/locations.json", "ADD LOCATION");
-
+            return mapper.valueToTree(updated);
         } catch (Exception e) {
-            throw new RuntimeException("Failed to add location", e);
+            throw new RuntimeException("Failed to convert to JSON", e);
         }
     }
-
-    public JsonNode updateLocation(int locationId, String name, String city) {
-
-        try {
-            File file = new File("data/locations.json");
-            ArrayNode locations = (ArrayNode) mapper.readTree(file);
-
-            String updatedName = name;
-            for (JsonNode location : locations) {
-
-                if (!location.has("id"))
-                    continue;
-
-                if (location.get("id").asInt() == locationId) {
-
-                    ObjectNode node = (ObjectNode) location;
-
-                    if (name != null && !name.isBlank()) {
-                        node.put("name", name);
-                        updatedName = name;
-                    }
-                    if (city != null && !city.isBlank()) {
-                        node.put("city", city);
-                    }
-
-                    mapper.writerWithDefaultPrettyPrinter()
-                            .writeValue(file, locations);
-
-                    // Push to GitHub
-                    pushToGitHub("data/locations.json", "UPDATE LOCATION");
-
-                    return node;
-                }
-            }
-
-            throw new RuntimeException("Location not found: " + locationId);
-
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to update location", e);
-        }
-    }
-
 
     public JsonNode updateCategoryLocation(LocationUpdateRequest request) {
-
-        try {
-            String fileName = "data/category-location-details/category-" + request.getCategoryId() + ".json";
-            File file = new File(fileName);
-
-            JsonNode root = mapper.readTree(file);
-            ArrayNode locations = (ArrayNode) root.get("locations");
-
-            String locationName = "";
-            for (JsonNode location : locations) {
-
-                if (location.get("locationId").asInt() == request.getLocationId()) {
-                    locationName = location.has("name") ? location.get("name").asText() : "Unknown";
-
-                    request.getUpdates().forEach((path, value) -> JsonUpdateUtil.updateJsonValue(
-                            (ObjectNode) location,
-                            path,
-                            mapper.valueToTree(value)));
-
-                    mapper.writerWithDefaultPrettyPrinter()
-                            .writeValue(file, root);
-
-                    // Push to GitHub
-                    pushToGitHub(fileName, "UPDATE LOCATION DETAILS");
-
-                    return location;
+        // Find and update in locations table
+        Optional<Location> locOpt = locationRepository.findById(request.getLocationId());
+        if (locOpt.isEmpty()) {
+            throw new RuntimeException("Location not found: " + request.getLocationId());
+        }
+        
+        Location location = locOpt.get();
+        
+        // Find and update in location_info table
+        Optional<LocationDetail> detailOpt = locationDetailRepository.findByLocationIdAndCategoryId(
+                request.getLocationId(), request.getCategoryId());
+        if (detailOpt.isEmpty()) {
+            throw new RuntimeException("Location detail not found for location_id: " + request.getLocationId());
+        }
+        
+        LocationDetail detail = detailOpt.get();
+        
+        // Get the updates map
+        Map<String, Object> updates = request.getUpdates();
+        
+        if (updates != null) {
+            // Update name in both tables
+            if (updates.containsKey("name")) {
+                Object nameValue = updates.get("name");
+                if (nameValue instanceof String) {
+                    String name = (String) nameValue;
+                    location.setName(name);
+                    detail.setName(name);
                 }
             }
-
-            throw new RuntimeException("Location not found");
-
+            
+            // Update district in locations table
+            if (updates.containsKey("district")) {
+                Object districtValue = updates.get("district");
+                if (districtValue instanceof String) {
+                    String district = (String) districtValue;
+                    location.setCity(district);
+                }
+            }
+            
+            // Update details (JSONB) in location_info table
+            if (updates.containsKey("details")) {
+                Object detailsObj = updates.get("details");
+                if (detailsObj instanceof Map) {
+                    @SuppressWarnings("unchecked")
+                    Map<String, Object> newDetails = (Map<String, Object>) detailsObj;
+                    Map<String, Object> currentDetails = detail.getDetails();
+                    if (currentDetails == null) {
+                        currentDetails = new HashMap<>();
+                    }
+                    currentDetails.putAll(newDetails);
+                    detail.setDetails(currentDetails);
+                }
+            }
+        }
+        
+        // Save both entities
+        locationRepository.save(location);
+        LocationDetail updatedDetail = locationDetailRepository.save(detail);
+        
+        try {
+            return mapper.valueToTree(updatedDetail);
         } catch (Exception e) {
-            throw new RuntimeException("Failed to update location", e);
+            throw new RuntimeException("Failed to convert to JSON", e);
         }
     }
 
-    public List<JsonNode> addLocationToCategory(
-            int categoryId,
-            List<Map<String, Object>> newLocations) {
+    public List<JsonNode> addLocationToCategory(int categoryId, List<Map<String, Object>> newLocations) {
+        List<JsonNode> added = new java.util.ArrayList<>();
 
-        try {
-            String fileName = "data/category-location-details/category-" + categoryId + ".json";
-            File file = new File(fileName);
-
-            JsonNode root = mapper.readTree(file);
-            ArrayNode locationsNode = (ArrayNode) root.get("locations");
-
-            int maxId = 0;
-            for (JsonNode loc : locationsNode) {
-                maxId = Math.max(maxId, loc.get("locationId").asInt());
-            }
-
-            List<JsonNode> added = new ArrayList<>();
-
-            for (Map<String, Object> data : newLocations) {
-
-                ObjectNode newLoc = mapper.createObjectNode();
-                newLoc.put("locationId", ++maxId);
-
-                ObjectNode temp = mapper.valueToTree(data);
-
-                newLoc.set("name", temp.get("name"));
-                newLoc.set("details", temp.get("details"));
-
-                locationsNode.add(newLoc);
-                added.add(newLoc);
-            }
-
-            mapper.writerWithDefaultPrettyPrinter()
-                    .writeValue(file, root);
-
-            // Push to GitHub
-            pushToGitHub(fileName, "ADD LOCATIONS TO CATEGORY");
-
-            return added;
-
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to add locations", e);
-        }
-    }
-
-    /*
-     * =========================
-     * INTERNAL HELPERS
-     * =========================
-     */
-
-    /**
-     * Push file changes to GitHub using GitHub API or local git
-     */
-    private void pushToGitHub(String fileName, String changeType) {
-        try {
-            String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-            String commitMessage = String.format("%s: %s at %s", changeType, fileName, timestamp);
-
-            logger.info("Attempting to push {} to GitHub", fileName);
-            logger.info("GitHub API configured: {}", gitHubApiService.isConfigured());
-
-            // Try GitHub API first if configured
-            if (gitHubApiService.isConfigured()) {
-                File file = new File(fileName);
-                String content = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(mapper.readTree(file));
-                logger.info("Calling GitHub API to update {}", fileName);
-                gitHubApiService.updateFileAsync(fileName, content, commitMessage);
-                logger.info("GitHub API call initiated for {}", fileName);
+        for (Map<String, Object> data : newLocations) {
+            // Extract location data
+            String name = (String) data.get("name");
+            String district = (String) data.get("district");
+            
+            // Create location in locations table
+            Location location = new Location();
+            location.setName(name);
+            location.setCity(district);
+            location.setCategoryId(categoryId);
+            Location savedLocation = locationRepository.save(location);
+            
+            // Create location detail in location_info table
+            LocationDetail detail = new LocationDetail();
+            detail.setLocationId(savedLocation.getId());
+            detail.setName(name);
+            detail.setCategoryId(categoryId);
+            
+            // Extract and set the details (JSONB data)
+            Object detailsObj = data.get("details");
+            if (detailsObj instanceof Map) {
+                detail.setDetails((Map<String, Object>) detailsObj);
             } else {
-                // Fall back to local git commands
-                logger.info("GitHub token not configured, using local git commands");
-                gitService.commitAndPushAsync(fileName, changeType);
+                detail.setDetails(new HashMap<>());
             }
-        } catch (Exception e) {
-            logger.error("Failed to push to GitHub: {}", e.getMessage(), e);
+            
+            LocationDetail savedDetail = locationDetailRepository.save(detail);
+            added.add(mapper.valueToTree(savedDetail));
         }
+
+        return added;
     }
 
-    private void createCategoryLocationFile(int categoryId) {
+    private int getNextCategoryId() {
+        List<Category> categories = categoryRepository.findAll();
+        return categories.isEmpty() ? 1
+                : categories.stream()
+                        .mapToInt(Category::getId)
+                        .max()
+                        .getAsInt() + 1;
+    }
 
-        try {
-            String fileName = "data/category-location-details/category-" + categoryId + ".json";
-            File file = new File(fileName);
+    private int getNextLocationId() {
+        List<Location> locations = locationRepository.findAll();
+        return locations.isEmpty() ? 1
+                : locations.stream()
+                        .mapToInt(Location::getId)
+                        .max()
+                        .getAsInt() + 1;
+    }
 
-            if (!file.getParentFile().exists()) {
-                file.getParentFile().mkdirs();
-            }
-
-            if (!file.exists()) {
-                ObjectNode root = mapper.createObjectNode();
-                root.put("categoryId", categoryId);
-                root.set("locations", mapper.createArrayNode());
-
-                mapper.writerWithDefaultPrettyPrinter()
-                        .writeValue(file, root);
-
-                // Push new file to GitHub
-                pushToGitHub(fileName, "ADD CATEGORY LOCATION FILE");
-            }
-
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to create category location file", e);
-        }
+    private int getNextLocationDetailId() {
+        List<LocationDetail> details = locationDetailRepository.findAll();
+        return details.isEmpty() ? 1
+                : details.stream()
+                        .mapToInt(LocationDetail::getId)
+                        .max()
+                        .getAsInt() + 1;
     }
 }

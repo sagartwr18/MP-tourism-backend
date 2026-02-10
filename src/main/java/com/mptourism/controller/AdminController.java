@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+// THESE ALL ARE PRIVATE/ADMIN SIDE API'S (AUTHORIZED THROUGH JWT)
 @RestController
 @RequestMapping("/api/admin")
 public class AdminController {
@@ -22,13 +23,13 @@ public class AdminController {
         this.adminService = adminService;
     }
 
-    // ✅ ADD CATEGORY
+    // ADD NEW CATEGORY
     @PostMapping("/addcategory")
     public ResponseEntity<Category> addCategory(@RequestBody Category category) {
         return ResponseEntity.ok(adminService.addCategory(category));
     }
 
-    // ✅ UPDATE CATEGORY DETAILS
+    // UPDATE EXISTING CATEGORY
     @PutMapping("/editcategory/{id}")
     public ResponseEntity<JsonNode> updateCategory(
             @PathVariable int id,
@@ -43,7 +44,7 @@ public class AdminController {
         return ResponseEntity.ok(updated);
     }
 
-    // ✅ ADD SINGLE OR MULTIPLE LOCATIONS TO ONE CATEGORY
+    // ADD SINGLE OR MULTIPLE LOCATIONS DETAILS INTO ONE CATEGORY
     @PostMapping("/category/{categoryId}/locations")
     public ResponseEntity<?> addLocationToCategory(
             @PathVariable int categoryId,
@@ -61,8 +62,8 @@ public class AdminController {
         );
     }
 
-    // ✅ UPDATE CATEGORY LOCATION DETAILS (BULK)
-    @PutMapping("/editlocation/update-details")
+    // UPDATE EXISTING LOCATION DETAILS
+    @PutMapping("/editlocationdetails")
     public ResponseEntity<?> updateCategoryLocation(
             @RequestBody LocationUpdateRequest request) {
 

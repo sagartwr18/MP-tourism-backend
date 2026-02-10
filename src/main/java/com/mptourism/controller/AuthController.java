@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+// THESE TWO ARE PUBLIC API'S BUT USED JSON WEB TOKEN
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -27,12 +28,14 @@ public class AuthController {
         this.authService = authService;
     }
 
+    // REGISTER USER
     @PostMapping("/register")
     public String register(@RequestBody RegisterRequest request) {
         authService.register(request);
         return "User registered successfully";
     }
 
+    // LOGIN USER
     @PostMapping("/login")
     public AuthResponse login(@RequestBody LoginRequest request) {
         String token = authService.login(request);

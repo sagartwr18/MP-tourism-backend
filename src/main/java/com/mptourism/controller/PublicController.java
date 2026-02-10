@@ -13,6 +13,7 @@ import com.mptourism.model.Category;
 import com.mptourism.model.Location;
 import com.mptourism.service.PublicService;
 
+// THESE ARE ALL PUBLIC API'S
 @RestController
 @RequestMapping("/api/public")
 public class PublicController {
@@ -23,18 +24,19 @@ public class PublicController {
         this.publicService = publicService;
     }
 
-    // ✅ GET ALL CATEGORIES
+    // GET ALL CATEGORIES
     @GetMapping("/categories")
     public ResponseEntity<List<Category>> getCategories() {
         return ResponseEntity.ok(publicService.getCategories());
     }
 
-    // ✅ GET LOCATIONS BY CATEGORY
+    // GET LOCATIONS BY CATEGORY ID
     @GetMapping("/category/{categoryId}")
     public ResponseEntity<List<Location>> getByCategory(@PathVariable int categoryId) {
         return ResponseEntity.ok(publicService.getLocationsByCategory(categoryId));
     }
 
+    // GET LOCATIONS DETAILS BY CATEGORY ID AND LOCATION ID
     @GetMapping("/{categoryId}/location/{locationId}")
     public ResponseEntity<?> getLocationDetails(
         @PathVariable int categoryId,

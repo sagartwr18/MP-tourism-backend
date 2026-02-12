@@ -10,20 +10,24 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    
+
     @Column(nullable = false)
     private String name;
-    
+
     @Column(columnDefinition = "TEXT")
     private String description;
-    
+
     @Column(name = "is_active")
     private Boolean isActive = true;
-    
+
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    public Category() {}
+    @Column(name = "image_url", columnDefinition = "TEXT")
+    private String imageUrl;
+
+    public Category() {
+    }
 
     @PrePersist
     protected void onCreate() {
@@ -60,6 +64,14 @@ public class Category {
 
     public void setIsActive(Boolean isActive) {
         this.isActive = isActive;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public LocalDateTime getCreatedAt() {

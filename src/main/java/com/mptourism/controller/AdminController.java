@@ -38,7 +38,8 @@ public class AdminController {
         JsonNode updated = adminService.updateCategory(
                 id,
                 body.get("name"),
-                body.get("description")
+                body.get("description"),
+                body.get("imageUrl")
         );
 
         return ResponseEntity.ok(updated);

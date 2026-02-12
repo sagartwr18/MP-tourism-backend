@@ -46,7 +46,7 @@ public class AdminService {
         return saved;
     }
 
-    public JsonNode updateCategory(int categoryId, String name, String description) {
+    public JsonNode updateCategory(int categoryId, String name, String description, String imageUrl) {
         Optional<Category> catOpt = categoryRepository.findById(categoryId);
 
         if (catOpt.isEmpty()) {
@@ -59,6 +59,9 @@ public class AdminService {
         }
         if (description != null && !description.isBlank()) {
             category.setDescription(description);
+        }
+        if (imageUrl != null && !imageUrl.isBlank()) {
+            category.setImageUrl(imageUrl);
         }
 
         Category updated = categoryRepository.save(category);
